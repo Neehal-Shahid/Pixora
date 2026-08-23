@@ -3,13 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Container from '../components/layout/Container';
 import SearchBar from '../components/search/SearchBar';
 import OrientationFilter from '../components/search/OrientationFilter';
-import ColorFilter from '../components/search/ColorFilter';
 import ImageGrid from '../components/images/ImageGrid';
 import ImageSkeleton from '../components/images/ImageSkeleton';
 import LoadMoreButton from '../components/ui/LoadMoreButton';
 import EmptyState from '../components/feedback/EmptyState';
 import ErrorState from '../components/feedback/ErrorState';
-import SEO from '../components/seo/SEO';
 import { searchPhotos } from '../api/unsplash';
 import { formatNumber } from '../utils/formatters';
 
@@ -23,7 +21,6 @@ export default function SearchResultsPage() {
   const [totalResults, setTotalResults] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [orientation, setOrientation] = useState('');
-  const [color, setColor] = useState('');
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
@@ -41,7 +38,7 @@ export default function SearchResultsPage() {
       setSeenIds(new Set());
 
       try {
-        const result = await searchPhotos(decodedQuery, 1, 20, orientation, color);
+        const result = await searchPhotos(decodedQuery, 1, 20, orientation);
         if (cancelled) return;
 
         setPhotos(result.photos);
@@ -57,7 +54,7 @@ export default function SearchResultsPage() {
 
     if (decodedQuery) search();
     return () => { cancelled = true; };
-  }, [decodedQuery, orientation, color]);
+  }, [decodedQuery, orientation]);
 
   // Load more
   const handleLoadMore = useCallback(async () => {
@@ -65,7 +62,7 @@ export default function SearchResultsPage() {
     setLoadingMore(true);
     try {
       const nextPage = page + 1;
-      const result = await searchPhotos(decodedQuery, nextPage, 20, orientation, color);
+      const result = await searchPhotos(decodedQuery, nextPage, 20, orientation);
 
       const newPhotos = result.photos.filter((p) => !seenIds.has(p.id));
       if (newPhotos.length > 0) {
@@ -82,7 +79,7 @@ export default function SearchResultsPage() {
     } finally {
       setLoadingMore(false);
     }
-  }, [page, loadingMore, decodedQuery, orientation, color, seenIds]);
+  }, [page, loadingMore, decodedQuery, orientation, seenIds]);
 
   const handleSearch = (newQuery) => {
     navigate(`/search/${encodeURIComponent(newQuery)}`);
@@ -91,10 +88,8 @@ export default function SearchResultsPage() {
   const hasMore = page < totalPages;
 
   return (
-    <>
-      <SEO title={`${decodedQuery} images`} description={`Explore the best ${decodedQuery} images on Pixora.`} />
-      <section className="mt-6 mb-10">
-        <Container>
+    <section className="mt-6 mb-10">
+      <Container>
         {/* Search bar */}
         <div className="max-w-2xl mb-6">
           <SearchBar variant="compact" initialQuery={decodedQuery} onSearch={handleSearch} />
@@ -113,11 +108,7 @@ export default function SearchResultsPage() {
             )}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
-            <ColorFilter value={color} onChange={setColor} />
-            <div className="hidden sm:block w-px h-6 bg-border"></div>
-            <OrientationFilter value={orientation} onChange={setOrientation} />
-          </div>
+          <OrientationFilter value={orientation} onChange={setOrientation} />
         </div>
 
         {/* Content */}
@@ -148,6 +139,5 @@ export default function SearchResultsPage() {
         )}
       </Container>
     </section>
-    </>
   );
 }

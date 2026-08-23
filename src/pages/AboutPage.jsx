@@ -1,13 +1,10 @@
 import Container from '../components/layout/Container';
 import { Link } from 'react-router-dom';
-import SEO from '../components/seo/SEO';
 
 export default function AboutPage() {
   return (
-    <>
-      <SEO title="About" description="Learn more about Pixora, the beautiful image discovery platform." />
-      <section className="mt-8 mb-10">
-        <Container>
+    <section className="mt-8 mb-10">
+      <Container>
         <div className="max-w-2xl mx-auto py-10">
           <h1 className="text-3xl font-bold text-text-primary mb-6">About Pixora</h1>
 
@@ -77,6 +74,5 @@ export default function AboutPage() {
         </div>
       </Container>
     </section>
-    </>
   );
 }

@@ -35,21 +35,6 @@ export const ORIENTATION_OPTIONS = [
   { value: 'squarish', label: 'Square' },
 ];
 
-export const COLOR_OPTIONS = [
-  { label: 'Any Color', value: '', hex: '' },
-  { label: 'B&W', value: 'black_and_white', hex: 'linear-gradient(135deg, #000 50%, #fff 50%)' },
-  { label: 'Black', value: 'black', hex: '#000000' },
-  { label: 'White', value: 'white', hex: '#ffffff' },
-  { label: 'Yellow', value: 'yellow', hex: '#fbbf24' },
-  { label: 'Orange', value: 'orange', hex: '#f97316' },
-  { label: 'Red', value: 'red', hex: '#ef4444' },
-  { label: 'Purple', value: 'purple', hex: '#a855f7' },
-  { label: 'Magenta', value: 'magenta', hex: '#d946ef' },
-  { label: 'Green', value: 'green', hex: '#22c55e' },
-  { label: 'Teal', value: 'teal', hex: '#14b8a6' },
-  { label: 'Blue', value: 'blue', hex: '#3b82f6' },
-];
-
 export const RECENT_SEARCHES_KEY = 'pixora_recent_searches';
 export const FAVORITES_KEY = 'pixora_favorites';
 export const MAX_RECENT_SEARCHES = 8;

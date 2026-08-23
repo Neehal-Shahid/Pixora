@@ -7,21 +7,17 @@ import SaveButton from '../components/ui/SaveButton';
 import DownloadButton from '../components/ui/DownloadButton';
 import PhotographerInfo from '../components/ui/PhotographerInfo';
 import ErrorState from '../components/feedback/ErrorState';
-import SEO from '../components/seo/SEO';
 import { getPhoto, getRandomPhotos } from '../api/unsplash';
 import { getOrientation, formatNumber } from '../utils/formatters';
-import { useFavorites } from '../context/FavoritesContext';
 
 export default function PhotoDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { customCollections, toggleInCollection } = useFavorites();
   const [photo, setPhoto] = useState(null);
   const [relatedPhotos, setRelatedPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [showBoards, setShowBoards] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -89,11 +85,6 @@ export default function PhotoDetailsPage() {
 
   return (
     <>
-      <SEO 
-        title={photo.alt_description || `Photo by ${photo.user?.name}`} 
-        description={photo.description || photo.alt_description || `View this amazing photo by ${photo.user?.name} on Pixora.`}
-        image={photo.urls.regular}
-      />
       <Container>
         <div className="mt-6 mb-12">
           {/* Back + Actions Bar */}
@@ -108,43 +99,7 @@ export default function PhotoDetailsPage() {
               Back
             </button>
 
-            <div className="flex items-center gap-2 relative">
-              {customCollections.length > 0 && (
-                <div className="relative">
-                  <button
-                    onClick={() => setShowBoards(!showBoards)}
-                    className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium bg-surface-secondary text-text-primary rounded-lg hover:bg-border transition-colors"
-                  >
-                    Add to Board
-                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                  </button>
-                  {showBoards && (
-                    <>
-                      <div className="fixed inset-0 z-40" onClick={() => setShowBoards(false)} />
-                      <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-zinc-800 rounded-xl shadow-lg border border-border py-1.5 z-50">
-                        <div className="px-3 py-1.5 text-xs font-semibold text-text-muted uppercase tracking-wider">Your Boards</div>
-                        {customCollections.map(board => {
-                          const inBoard = board.photoIds.includes(photo.id);
-                          return (
-                            <button
-                              key={board.id}
-                              onClick={() => {
-                                toggleInCollection(board.id, photo);
-                              }}
-                              className="w-full text-left px-3 py-2 text-sm text-text-primary hover:bg-surface-secondary flex items-center justify-between"
-                            >
-                              <span className="truncate pr-2">{board.name}</span>
-                              {inBoard && (
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent shrink-0"><path d="M20 6L9 17l-5-5"/></svg>
-                              )}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </>
-                  )}
-                </div>
-              )}
+            <div className="flex items-center gap-2">
               <SaveButton photo={photo} size="lg" showLabel />
               <DownloadButton photo={photo} size="lg" showLabel />
             </div>
