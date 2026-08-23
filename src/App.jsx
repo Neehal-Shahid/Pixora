@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { useEffect } from 'react';
 import { FavoritesProvider } from './context/FavoritesContext';
 import { ToastProvider } from './context/ToastContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Toast from './components/feedback/Toast';
@@ -45,12 +47,16 @@ function AppContent() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <FavoritesProvider>
-        <ToastProvider>
-          <AppContent />
-        </ToastProvider>
-      </FavoritesProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <ThemeProvider>
+          <FavoritesProvider>
+            <ToastProvider>
+              <AppContent />
+            </ToastProvider>
+          </FavoritesProvider>
+        </ThemeProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }

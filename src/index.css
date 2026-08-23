@@ -26,6 +26,24 @@
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 
+.dark {
+  --color-background: #18181b;
+  --color-surface: #18181b;
+  --color-surface-secondary: #27272a;
+  
+  --color-text-primary: #f4f4f5;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+  
+  --color-border: #3f3f46;
+  --color-border-subtle: #27272a;
+  
+  --color-primary: #f4f4f5;
+  --color-primary-hover: #e4e4e7;
+  
+  /* We keep accents and success/danger the same for brand consistency */
+}
+
 /* ===== Base Styles ===== */
 html {
   scroll-behavior: smooth;
@@ -82,7 +100,7 @@ body {
   background: linear-gradient(
     90deg,
     var(--color-surface-secondary) 25%,
-    #ececee 37%,
+    var(--color-border) 37%,
     var(--color-surface-secondary) 63%
   );
   background-size: 200% 100%;

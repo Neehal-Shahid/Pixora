@@ -78,12 +78,13 @@ export async function getPhotos(page = 1, perPage = PER_PAGE, orderBy = 'latest'
 /**
  * Search photos by query
  */
-export async function searchPhotos(query, page = 1, perPage = PER_PAGE, orientation = '') {
+export async function searchPhotos(query, page = 1, perPage = PER_PAGE, orientation = '', color = '') {
   const result = await fetchFromAPI('/search/photos', {
     query,
     page,
     per_page: perPage,
     orientation: orientation || undefined,
+    color: color || undefined,
   });
   return {
     photos: result.data.results,

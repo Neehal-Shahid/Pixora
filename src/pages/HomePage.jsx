@@ -6,6 +6,7 @@ import ImageSkeleton from '../components/images/ImageSkeleton';
 import FeaturedSlider from '../components/images/FeaturedSlider';
 import LoadMoreButton from '../components/ui/LoadMoreButton';
 import ErrorState from '../components/feedback/ErrorState';
+import SEO from '../components/seo/SEO';
 import { getPhotos, getRandomPhotos, getTopics } from '../api/unsplash';
 import { TRENDING_SEARCHES } from '../constants';
 import { Link, useNavigate } from 'react-router-dom';
@@ -85,6 +86,7 @@ export default function HomePage() {
 
   return (
     <>
+      <SEO title="Home" description="Discover beautiful images and photos on Pixora." />
       {/* Hero Section */}
       <section className="relative bg-surface-secondary border-b border-border-subtle">
         <Container>

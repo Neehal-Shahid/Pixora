@@ -3,6 +3,7 @@ import Container from '../components/layout/Container';
 import ImageGrid from '../components/images/ImageGrid';
 import ImageSkeleton from '../components/images/ImageSkeleton';
 import ErrorState from '../components/feedback/ErrorState';
+import SEO from '../components/seo/SEO';
 import { getTopics, getTopicPhotos } from '../api/unsplash';
 import { Link } from 'react-router-dom';
 
@@ -42,8 +43,10 @@ export default function ExplorePage() {
   }, []);
 
   return (
-    <section className="mt-8 mb-10">
-      <Container>
+    <>
+      <SEO title="Explore" description="Explore curated photography topics and collections on Pixora." />
+      <section className="mt-8 mb-10">
+        <Container>
         <div className="mb-10">
           <h1 className="text-3xl font-bold text-text-primary mb-2">Explore</h1>
           <p className="text-text-secondary">
@@ -93,5 +96,6 @@ export default function ExplorePage() {
         )}
       </Container>
     </section>
+    </>
   );
 }
