@@ -3,6 +3,7 @@ import Container from '../components/layout/Container';
 import CategoryCard from '../components/ui/CategoryCard';
 import { CATEGORIES } from '../constants';
 import { getRandomPhotos } from '../api/unsplash';
+import SEO from '../components/seo/SEO';
 
 export default function CollectionsPage() {
   const [coverImages, setCoverImages] = useState({});
@@ -43,7 +44,9 @@ export default function CollectionsPage() {
   }, []);
 
   return (
-    <section className="mt-8 mb-10">
+    <>
+      <SEO title="Collections" description="Explore images by category. Find exactly what inspires you." />
+      <section className="mt-8 mb-10">
       <Container>
         <div className="mb-10">
           <h1 className="text-3xl font-bold text-text-primary mb-2">Collections</h1>
@@ -63,5 +66,6 @@ export default function CollectionsPage() {
         </div>
       </Container>
     </section>
+    </>
   );
 }

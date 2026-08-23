@@ -7,8 +7,8 @@ import FeaturedSlider from '../components/images/FeaturedSlider';
 import LoadMoreButton from '../components/ui/LoadMoreButton';
 import ErrorState from '../components/feedback/ErrorState';
 import { getPhotos, getRandomPhotos, getTopics } from '../api/unsplash';
-import { TRENDING_SEARCHES } from '../constants';
 import { Link, useNavigate } from 'react-router-dom';
+import SEO from '../components/seo/SEO';
 
 export default function HomePage() {
   const [photos, setPhotos] = useState([]);
@@ -85,6 +85,7 @@ export default function HomePage() {
 
   return (
     <>
+      <SEO title="Home" />
       {/* Hero Section */}
       <section className="relative bg-surface-secondary border-b border-border-subtle">
         <Container>

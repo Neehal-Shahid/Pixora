@@ -1,23 +1,45 @@
-import { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import { createContext, useContext, useState, useCallback, useMemo, useEffect } from 'react';
 import { getStorageItem, setStorageItem } from '../utils/storage';
-import { FAVORITES_KEY } from '../constants';
 
 const FavoritesContext = createContext(null);
+const COLLECTIONS_KEY = 'pixora_collections';
 
 export function FavoritesProvider({ children }) {
-  const [favorites, setFavorites] = useState(() =>
-    getStorageItem(FAVORITES_KEY, [])
-  );
+  const [collections, setCollections] = useState(() => {
+    const saved = getStorageItem(COLLECTIONS_KEY, null);
+    if (saved) return saved;
+    
+    // Migrate old favorites if they exist
+    const oldFavorites = getStorageItem('pixora_favorites', []);
+    return [{
+      id: 'default',
+      name: 'Saved',
+      photos: oldFavorites
+    }];
+  });
 
-  const toggleFavorite = useCallback((photo) => {
-    setFavorites((prev) => {
-      const exists = prev.some((f) => f.id === photo.id);
-      let updated;
+  useEffect(() => {
+    setStorageItem(COLLECTIONS_KEY, collections);
+  }, [collections]);
 
-      if (exists) {
-        updated = prev.filter((f) => f.id !== photo.id);
-      } else {
-        // Store only essential data to keep localStorage lean
+  const createCollection = useCallback((name) => {
+    const newCollection = {
+      id: Date.now().toString(),
+      name,
+      photos: []
+    };
+    setCollections(prev => [...prev, newCollection]);
+    return newCollection.id;
+  }, []);
+
+  const deleteCollection = useCallback((id) => {
+    setCollections(prev => prev.filter(c => c.id !== id));
+  }, []);
+
+  const addPhotoToCollection = useCallback((collectionId, photo) => {
+    setCollections(prev => prev.map(c => {
+      if (c.id === collectionId) {
+        if (c.photos.some(p => p.id === photo.id)) return c; // Already exists
         const minimal = {
           id: photo.id,
           width: photo.width,
@@ -30,37 +52,46 @@ export function FavoritesProvider({ children }) {
             regular: photo.urls.regular,
             thumb: photo.urls.thumb,
           },
-          links: {
-            download_location: photo.links.download_location,
-          },
+          links: { download_location: photo.links.download_location },
           user: {
             name: photo.user.name,
             username: photo.user.username,
-            profile_image: {
-              medium: photo.user.profile_image?.medium,
-            },
-            links: {
-              html: photo.user.links?.html,
-            },
+            profile_image: { medium: photo.user.profile_image?.medium },
+            links: { html: photo.user.links?.html },
           },
         };
-        updated = [minimal, ...prev];
+        return { ...c, photos: [minimal, ...c.photos] };
       }
-
-      setStorageItem(FAVORITES_KEY, updated);
-      return updated;
-    });
+      return c;
+    }));
   }, []);
 
-  const isFavorite = useCallback(
-    (photoId) => favorites.some((f) => f.id === photoId),
-    [favorites]
-  );
+  const removePhotoFromCollection = useCallback((collectionId, photoId) => {
+    setCollections(prev => prev.map(c => {
+      if (c.id === collectionId) {
+        return { ...c, photos: c.photos.filter(p => p.id !== photoId) };
+      }
+      return c;
+    }));
+  }, []);
 
-  const value = useMemo(
-    () => ({ favorites, toggleFavorite, isFavorite }),
-    [favorites, toggleFavorite, isFavorite]
-  );
+  const isFavorite = useCallback((photoId) => {
+    return collections.some(c => c.photos.some(p => p.id === photoId));
+  }, [collections]);
+
+  const getPhotoCollections = useCallback((photoId) => {
+    return collections.filter(c => c.photos.some(p => p.id === photoId)).map(c => c.id);
+  }, [collections]);
+
+  const value = useMemo(() => ({
+    collections,
+    createCollection,
+    deleteCollection,
+    addPhotoToCollection,
+    removePhotoFromCollection,
+    isFavorite,
+    getPhotoCollections
+  }), [collections, createCollection, deleteCollection, addPhotoToCollection, removePhotoFromCollection, isFavorite, getPhotoCollections]);
 
   return (
     <FavoritesContext.Provider value={value}>
@@ -71,8 +102,6 @@ export function FavoritesProvider({ children }) {
 
 export function useFavorites() {
   const context = useContext(FavoritesContext);
-  if (!context) {
-    throw new Error('useFavorites must be used within FavoritesProvider');
-  }
+  if (!context) throw new Error('useFavorites must be used within FavoritesProvider');
   return context;
 }

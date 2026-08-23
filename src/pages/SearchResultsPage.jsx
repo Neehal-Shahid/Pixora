@@ -10,6 +10,7 @@ import EmptyState from '../components/feedback/EmptyState';
 import ErrorState from '../components/feedback/ErrorState';
 import { searchPhotos } from '../api/unsplash';
 import { formatNumber } from '../utils/formatters';
+import SEO from '../components/seo/SEO';
 
 export default function SearchResultsPage() {
   const { query } = useParams();
@@ -88,7 +89,9 @@ export default function SearchResultsPage() {
   const hasMore = page < totalPages;
 
   return (
-    <section className="mt-6 mb-10">
+    <>
+      <SEO title={`${decodedQuery || 'Search'}`} description={`Search results for ${decodedQuery}`} />
+      <section className="mt-6 mb-10">
       <Container>
         {/* Search bar */}
         <div className="max-w-2xl mb-6">
@@ -130,14 +133,56 @@ export default function SearchResultsPage() {
         ) : (
           <>
             <ImageGrid images={photos} />
-            <LoadMoreButton
-              onClick={handleLoadMore}
-              loading={loadingMore}
-              hasMore={hasMore}
+        <Container>
+          {/* Search bar */}
+          <div className="max-w-2xl mb-6">
+            <SearchBar variant="compact" initialQuery={decodedQuery} onSearch={handleSearch} />
+          </div>
+
+          {/* Header with filters */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+            <div>
+              <h1 className="text-2xl font-bold text-text-primary">
+                {decodedQuery}
+              </h1>
+              {!loading && !error && (
+                <p className="text-sm text-text-secondary mt-1">
+                  {formatNumber(totalResults)} {totalResults === 1 ? 'result' : 'results'}
+                </p>
+              )}
+            </div>
+
+            <OrientationFilter value={orientation} onChange={setOrientation} />
+          </div>
+
+          {/* Content */}
+          {loading ? (
+            <ImageSkeleton count={12} />
+          ) : error ? (
+            <ErrorState
+              title="Search failed"
+              description="We couldn't complete your search. Please try again."
+              onRetry={() => window.location.reload()}
             />
-          </>
-        )}
-      </Container>
-    </section>
+          ) : photos.length === 0 ? (
+            <EmptyState
+              title={`No results for "${decodedQuery}"`}
+              description="Try searching for something else or explore our curated collections."
+              actionLabel="Explore images"
+              actionTo="/explore"
+            />
+          ) : (
+            <>
+              <ImageGrid images={photos} />
+              <LoadMoreButton
+                onClick={handleLoadMore}
+                loading={loadingMore}
+                hasMore={hasMore}
+              />
+            </>
+          )}
+        </Container>
+      </section>
+    </>
   );
 }

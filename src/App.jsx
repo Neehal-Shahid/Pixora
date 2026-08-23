@@ -11,7 +11,9 @@ import PhotoDetailsPage from './pages/PhotoDetailsPage';
 import ExplorePage from './pages/ExplorePage';
 import CollectionsPage from './pages/CollectionsPage';
 import SavedPage from './pages/SavedPage';
+import CollectionDetailsPage from './pages/CollectionDetailsPage';
 import AboutPage from './pages/AboutPage';
+import { HelmetProvider } from 'react-helmet-async';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -34,6 +36,7 @@ function AppContent() {
           <Route path="/explore" element={<ExplorePage />} />
           <Route path="/collections" element={<CollectionsPage />} />
           <Route path="/saved" element={<SavedPage />} />
+          <Route path="/saved/:id" element={<CollectionDetailsPage />} />
           <Route path="/about" element={<AboutPage />} />
         </Routes>
       </main>
@@ -45,12 +48,14 @@ function AppContent() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <FavoritesProvider>
-        <ToastProvider>
-          <AppContent />
-        </ToastProvider>
-      </FavoritesProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <FavoritesProvider>
+          <ToastProvider>
+            <AppContent />
+          </ToastProvider>
+        </FavoritesProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }

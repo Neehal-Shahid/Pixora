@@ -9,6 +9,7 @@ import PhotographerInfo from '../components/ui/PhotographerInfo';
 import ErrorState from '../components/feedback/ErrorState';
 import { getPhoto, getRandomPhotos } from '../api/unsplash';
 import { getOrientation, formatNumber } from '../utils/formatters';
+import SEO from '../components/seo/SEO';
 
 export default function PhotoDetailsPage() {
   const { id } = useParams();
@@ -85,6 +86,10 @@ export default function PhotoDetailsPage() {
 
   return (
     <>
+      <SEO 
+        title={photo.alt_description || 'Photo Details'} 
+        description={photo.description || photo.alt_description || `Photo by ${photo.user?.name} on Pixora`}
+      />
       <Container>
         <div className="mt-6 mb-12">
           {/* Back + Actions Bar */}

@@ -1,16 +1,16 @@
+import { useState } from 'react';
 import { useFavorites } from '../../context/FavoritesContext';
-import { useToast } from '../../context/ToastContext';
+import SaveModal from './SaveModal';
 
 export default function SaveButton({ photo, size = 'sm', showLabel = false }) {
-  const { toggleFavorite, isFavorite } = useFavorites();
-  const { show } = useToast();
+  const { isFavorite } = useFavorites();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const saved = isFavorite(photo.id);
 
   const handleClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    toggleFavorite(photo);
-    show(saved ? 'Removed from saved' : 'Saved to collection');
+    setIsModalOpen(true);
   };
 
   const sizeClasses = size === 'lg'
@@ -45,6 +45,13 @@ export default function SaveButton({ photo, size = 'sm', showLabel = false }) {
       </svg>
       {showLabel && (
         <span className="text-sm font-medium">{saved ? 'Saved' : 'Save'}</span>
+      )}
+      
+      {isModalOpen && (
+        <SaveModal photo={photo} onClose={(e) => {
+          if (e) { e.preventDefault(); e.stopPropagation(); }
+          setIsModalOpen(false);
+        }} />
       )}
     </button>
   );

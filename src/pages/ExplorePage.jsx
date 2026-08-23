@@ -5,6 +5,7 @@ import ImageSkeleton from '../components/images/ImageSkeleton';
 import ErrorState from '../components/feedback/ErrorState';
 import { getTopics, getTopicPhotos } from '../api/unsplash';
 import { Link } from 'react-router-dom';
+import SEO from '../components/seo/SEO';
 
 export default function ExplorePage() {
   const [sections, setSections] = useState([]);
@@ -42,7 +43,9 @@ export default function ExplorePage() {
   }, []);
 
   return (
-    <section className="mt-8 mb-10">
+    <>
+      <SEO title="Explore" description="Explore curated photography topics from talented creators." />
+      <section className="mt-8 mb-10">
       <Container>
         <div className="mb-10">
           <h1 className="text-3xl font-bold text-text-primary mb-2">Explore</h1>
@@ -93,5 +96,6 @@ export default function ExplorePage() {
         )}
       </Container>
     </section>
+    </>
   );
 }
