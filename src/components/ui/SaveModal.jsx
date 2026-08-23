@@ -101,7 +101,12 @@ export default function SaveModal({ photo, onClose }) {
             </form>
           ) : (
             <button
-              onClick={() => setIsCreating(true)}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsCreating(true);
+              }}
               className="w-full flex items-center justify-center gap-2 py-2.5 bg-white border border-border rounded-lg hover:border-accent hover:text-accent transition-colors text-sm font-medium text-text-primary"
             >
               <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">

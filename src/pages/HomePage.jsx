@@ -7,6 +7,7 @@ import FeaturedSlider from '../components/images/FeaturedSlider';
 import LoadMoreButton from '../components/ui/LoadMoreButton';
 import ErrorState from '../components/feedback/ErrorState';
 import { getPhotos, getRandomPhotos, getTopics } from '../api/unsplash';
+import { TRENDING_SEARCHES } from '../constants';
 import { Link, useNavigate } from 'react-router-dom';
 import SEO from '../components/seo/SEO';
 
