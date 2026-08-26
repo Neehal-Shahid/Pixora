@@ -36,7 +36,7 @@ export default function CollectionDetailsPage() {
 
   return (
     <>
-      <SEO title={`${collection.name} | My Collections`} />
+      <SEO title={`${collection.name} — My Collections`} noindex />
       <section className="mt-8 mb-10">
         <Container>
           <div className="mb-6 flex items-center justify-between">

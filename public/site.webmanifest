@@ -1,0 +1,21 @@
+{
+  "name": "Pixora — Discover Beautiful Images",
+  "short_name": "Pixora",
+  "description": "Discover, search, and download high-quality images from talented photographers around the world.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#7F1734",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

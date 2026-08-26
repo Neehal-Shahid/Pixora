@@ -1,19 +1,22 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { FavoritesProvider } from './context/FavoritesContext';
 import { ToastProvider } from './context/ToastContext';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Toast from './components/feedback/Toast';
 import HomePage from './pages/HomePage';
-import SearchResultsPage from './pages/SearchResultsPage';
-import PhotoDetailsPage from './pages/PhotoDetailsPage';
-import ExplorePage from './pages/ExplorePage';
-import CollectionsPage from './pages/CollectionsPage';
-import SavedPage from './pages/SavedPage';
-import CollectionDetailsPage from './pages/CollectionDetailsPage';
-import AboutPage from './pages/AboutPage';
 import { HelmetProvider } from 'react-helmet-async';
+
+// Route-level code splitting: keeps the initial bundle (and LCP/TTI) small —
+// only the home page ships eagerly since it's the most common entry point.
+const SearchResultsPage = lazy(() => import('./pages/SearchResultsPage'));
+const PhotoDetailsPage = lazy(() => import('./pages/PhotoDetailsPage'));
+const ExplorePage = lazy(() => import('./pages/ExplorePage'));
+const CollectionsPage = lazy(() => import('./pages/CollectionsPage'));
+const SavedPage = lazy(() => import('./pages/SavedPage'));
+const CollectionDetailsPage = lazy(() => import('./pages/CollectionDetailsPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -29,16 +32,18 @@ function AppContent() {
       <ScrollToTop />
       <Header />
       <main id="main-content" className="min-h-[60vh]">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/search/:query" element={<SearchResultsPage />} />
-          <Route path="/photo/:id" element={<PhotoDetailsPage />} />
-          <Route path="/explore" element={<ExplorePage />} />
-          <Route path="/collections" element={<CollectionsPage />} />
-          <Route path="/saved" element={<SavedPage />} />
-          <Route path="/saved/:id" element={<CollectionDetailsPage />} />
-          <Route path="/about" element={<AboutPage />} />
-        </Routes>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/search/:query" element={<SearchResultsPage />} />
+            <Route path="/photo/:id" element={<PhotoDetailsPage />} />
+            <Route path="/explore" element={<ExplorePage />} />
+            <Route path="/collections" element={<CollectionsPage />} />
+            <Route path="/saved" element={<SavedPage />} />
+            <Route path="/saved/:id" element={<CollectionDetailsPage />} />
+            <Route path="/about" element={<AboutPage />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
       <Toast />

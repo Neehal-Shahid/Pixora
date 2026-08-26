@@ -83,12 +83,37 @@ export default function PhotoDetailsPage() {
   }
 
   const orientation = getOrientation(photo.width, photo.height);
+  const photoTitle = photo.alt_description
+    ? photo.alt_description.charAt(0).toUpperCase() + photo.alt_description.slice(1)
+    : `Photo by ${photo.user?.name}`;
+
+  const imageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ImageObject',
+    contentUrl: photo.urls?.regular,
+    thumbnailUrl: photo.urls?.small,
+    name: photoTitle,
+    description: photo.description || photo.alt_description || photoTitle,
+    width: photo.width,
+    height: photo.height,
+    datePublished: photo.created_at,
+    creditText: photo.user?.name,
+    creator: {
+      '@type': 'Person',
+      name: photo.user?.name,
+      url: photo.user?.links?.html,
+    },
+    license: 'https://unsplash.com/license',
+    acquireLicensePage: 'https://unsplash.com/license',
+  };
 
   return (
     <>
-      <SEO 
-        title={photo.alt_description || 'Photo Details'} 
-        description={photo.description || photo.alt_description || `Photo by ${photo.user?.name} on Pixora`}
+      <SEO
+        title={photoTitle}
+        description={photo.description || `${photoTitle} — free high-resolution photo by ${photo.user?.name}, available to download on Pixora.`}
+        image={photo.urls?.regular}
+        jsonLd={imageJsonLd}
       />
       <Container>
         <div className="mt-6 mb-12">
@@ -123,6 +148,7 @@ export default function PhotoDetailsPage() {
               <img
                 src={photo.urls.regular}
                 alt={photo.alt_description || `Photo by ${photo.user?.name}`}
+                fetchpriority="high"
                 onLoad={() => setImageLoaded(true)}
                 className={`block max-h-[75vh] w-auto max-w-full mx-auto transition-opacity duration-500 ${
                   imageLoaded ? 'opacity-100' : 'opacity-0'
@@ -138,6 +164,7 @@ export default function PhotoDetailsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left: Photographer + Description */}
             <div className="lg:col-span-2 space-y-6">
+              <h1 className="text-xl font-semibold text-text-primary">{photoTitle}</h1>
               <PhotographerInfo user={photo.user} size="lg" />
 
               {(photo.description || photo.alt_description) && (

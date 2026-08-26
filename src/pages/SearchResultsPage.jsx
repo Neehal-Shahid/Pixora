@@ -90,7 +90,11 @@ export default function SearchResultsPage() {
 
   return (
     <>
-      <SEO title={`${decodedQuery || 'Search'}`} description={`Search results for ${decodedQuery}`} />
+      <SEO
+        title={decodedQuery ? `"${decodedQuery}" images` : 'Search'}
+        description={`Browse free "${decodedQuery}" images and photos on Pixora, sourced from photographers around the world.`}
+        noindex
+      />
       <section className="mt-6 mb-10">
         <Container>
           {/* Search bar */}

@@ -2,14 +2,61 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Pixora — Discover stunning, high-quality images from photographers around the world. Search, explore, save, and download beautiful photography." />
-    <meta name="theme-color" content="#18181B" />
+
+    <!-- Primary SEO -->
+    <title>Pixora — Discover Beautiful Images</title>
+    <meta name="description" content="Explore millions of high-quality, free-to-download images from talented photographers around the world. Search, save, and discover photography that inspires." />
+    <link rel="canonical" href="https://pixora.workwithneehal.com/" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#7F1734" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/favicon.svg" color="#7F1734" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pixora" />
+    <meta property="og:title" content="Pixora — Discover Beautiful Images" />
+    <meta property="og:description" content="Explore millions of high-quality, free-to-download images from talented photographers around the world." />
+    <meta property="og:url" content="https://pixora.workwithneehal.com/" />
+    <meta property="og:image" content="https://pixora.workwithneehal.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pixora — Discover Beautiful Images" />
+    <meta name="twitter:description" content="Explore millions of high-quality, free-to-download images from talented photographers around the world." />
+    <meta name="twitter:image" content="https://pixora.workwithneehal.com/og-image.png" />
+
+    <!-- Performance: connect early to third-party origins used on nearly every page -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://api.unsplash.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <title>Pixora — Discover Beautiful Images</title>
+
+    <!-- Structured data: identifies the site/brand to Google (site name in results, sitelinks search box) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Pixora",
+        "url": "https://pixora.workwithneehal.com/",
+        "description": "Discover, search, and download high-quality images from talented photographers around the world.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://pixora.workwithneehal.com/search/{search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

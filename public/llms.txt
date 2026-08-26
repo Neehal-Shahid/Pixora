@@ -1,0 +1,18 @@
+# Pixora
+
+> Pixora is an image discovery platform that helps people find and download stunning, high-quality photography from talented creators around the world. It is powered by the Unsplash API and offers search, curated topics/categories, and personal collections for saving favorite images.
+
+Pixora is a client-side web app built with React, Vite, and Tailwind CSS. All photo content is sourced live from Unsplash and belongs to the respective photographers; Pixora does not host or own the images.
+
+## Key pages
+
+- [Home](https://pixora.workwithneehal.com/): Hero search, trending topics, and an editorial feed of images.
+- [Explore](https://pixora.workwithneehal.com/explore): Curated photography topics from talented creators.
+- [Collections](https://pixora.workwithneehal.com/collections): Browse images by category (nature, travel, architecture, technology, and more).
+- [About](https://pixora.workwithneehal.com/about): What Pixora is, how it works, and attribution to Unsplash.
+
+## Notes for automated agents
+
+- Search results (`/search/:query`) and individual photo pages (`/photo/:id`) are generated dynamically from live Unsplash API data and change frequently; treat them as a live catalog, not stable reference content.
+- A user's saved collections (`/saved`, `/saved/:id`) are stored locally in each visitor's browser and are not part of the site's public content.
+- All images are provided by Unsplash (https://unsplash.com) under their license; attribute photographers when reusing content.

@@ -20,7 +20,7 @@ export default function SavedPage() {
 
   return (
     <>
-      <SEO title="My Collections" description="View your saved image collections on Pixora." />
+      <SEO title="My Collections" description="View your saved image collections on Pixora." noindex />
       <section className="mt-8 mb-10">
         <Container>
           <div className="mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">

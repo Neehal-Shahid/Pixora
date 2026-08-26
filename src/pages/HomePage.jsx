@@ -86,7 +86,7 @@ export default function HomePage() {
 
   return (
     <>
-      <SEO title="Home" />
+      <SEO description="Explore millions of high-quality, free-to-download images from talented photographers around the world. Search, save, and discover photography that inspires." />
       {/* Hero Section */}
       <section className="relative bg-surface-secondary border-b border-border-subtle">
         <Container>
@@ -136,6 +136,7 @@ export default function HomePage() {
                   <img
                     src={photo.urls.small}
                     alt={photo.alt_description || 'Featured photo'}
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
@@ -175,6 +176,7 @@ export default function HomePage() {
                     <img
                       src={topic.cover_photo.urls.small}
                       alt={topic.title}
+                      loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   )}
