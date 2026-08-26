@@ -82,7 +82,7 @@ export default function SearchBar({
             onFocus={() => setFocused(true)}
             placeholder="Search for images..."
             className={`w-full bg-surface-secondary border border-border rounded-xl
-              focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20
+              focus:border-text-muted focus:outline-none
               transition-all placeholder:text-text-muted ${
               isHero
                 ? 'h-14 pl-12 pr-12 text-base'

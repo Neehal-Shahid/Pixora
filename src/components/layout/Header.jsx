@@ -106,7 +106,7 @@ export default function Header() {
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search images..."
                       autoFocus
-                      className="w-48 lg:w-64 h-9 px-3 text-sm bg-surface-secondary rounded-lg border border-border focus:border-accent focus:outline-none transition-colors"
+                      className="w-48 lg:w-64 h-9 px-3 text-sm bg-surface-secondary rounded-lg border border-border focus:border-text-muted focus:outline-none transition-colors"
                       aria-label="Search images"
                     />
                     <button

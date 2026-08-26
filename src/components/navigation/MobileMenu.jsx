@@ -84,7 +84,7 @@ export default function MobileMenu({ isOpen, onClose, links }) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search images..."
-                className="w-full h-10 pl-9 pr-3 text-sm bg-surface-secondary rounded-lg border border-border focus:border-accent focus:outline-none"
+                className="w-full h-10 pl-9 pr-3 text-sm bg-surface-secondary rounded-lg border border-border focus:border-text-muted focus:outline-none"
                 aria-label="Search images"
               />
             </div>
