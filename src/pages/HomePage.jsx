@@ -93,7 +93,7 @@ export default function HomePage() {
           <div className="py-16 sm:py-20 lg:py-24 max-w-2xl mx-auto text-center">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary tracking-tight mb-4">
               Discover images{' '}
-              <span className="text-text-secondary">that inspire</span>
+              <span className="text-accent">that inspire</span>
             </h1>
             <p className="text-text-secondary text-base sm:text-lg mb-8 max-w-lg mx-auto">
               Explore millions of high-quality images from talented photographers around the world.
