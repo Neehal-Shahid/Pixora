@@ -101,7 +101,7 @@ export default function MobileMenu({ isOpen, onClose, links }) {
               className={({ isActive }) =>
                 `block px-3 py-2.5 text-sm font-medium rounded-lg transition-colors ${
                   isActive
-                    ? 'text-text-primary bg-surface-secondary'
+                    ? 'text-accent bg-accent-light'
                     : 'text-text-secondary hover:text-text-primary hover:bg-surface-secondary'
                 }`
               }

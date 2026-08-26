@@ -41,7 +41,7 @@ export default function SavedPage() {
                   onChange={(e) => setNewCollectionName(e.target.value)}
                   className="px-3 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/50"
                 />
-                <button type="submit" disabled={!newCollectionName.trim()} className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-hover disabled:opacity-50">Create</button>
+                <button type="submit" disabled={!newCollectionName.trim()} className="px-4 py-2 text-sm font-medium text-white bg-accent rounded-lg hover:bg-accent-hover disabled:opacity-50">Create</button>
                 <button type="button" onClick={() => setIsCreating(false)} className="px-3 py-2 text-sm font-medium text-text-secondary hover:text-text-primary">Cancel</button>
               </form>
             ) : (

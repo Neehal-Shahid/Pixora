@@ -65,7 +65,7 @@ export default function Header() {
               aria-label="Pixora home"
             >
               <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="32" height="32" rx="8" fill="#18181B"/>
+                <rect width="32" height="32" rx="8" fill="#7F1734"/>
                 <path d="M8 12a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4v-8z" stroke="#fff" strokeWidth="1.5"/>
                 <circle cx="13" cy="14" r="2" stroke="#fff" strokeWidth="1.5"/>
                 <path d="M8 20l4.5-4.5a2 2 0 0 1 2.8 0L20 20" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/>
@@ -84,7 +84,7 @@ export default function Header() {
                   className={({ isActive }) =>
                     `px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                       isActive
-                        ? 'text-text-primary bg-surface-secondary'
+                        ? 'text-accent bg-accent-light'
                         : 'text-text-secondary hover:text-text-primary hover:bg-surface-secondary'
                     }`
                   }
